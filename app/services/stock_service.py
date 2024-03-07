@@ -10,19 +10,14 @@ class StockService(object):
 
     @staticmethod
     def create(request_data: StockCreateRequest):
-        start_date = request_data.start_date
-        # start_date = datetime.datetime.fromisoformat(start_date)
-        # start_date = f"{start_date.year},{start_date.month},{start_date.day}"
+        df = data.DataReader(
+            name=request_data.sign,
+            data_source="stooq",
+            start=request_data.start_date,
+            end=request_data.end_date
+        )
 
-        end_date = request_data.end_date
+        result_list = df.reset_index().to_dict(orient='records')
 
-        start_date = datetime.datetime(2024,1,1)
-        end_date = datetime.datetime(2024,3,1)
-        # end_date = datetime.datetime.fromisoformat(end_date)
-        # end_date = f"{end_date.year},{end_date.month},{end_date.day}"
-
-        df = data.DataReader(name=request_data.sign, data_source="stooq", start=start_date, end=end_date)
-        print(json(df))
-
-        return json(df)
+        return result_list
     
