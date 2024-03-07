@@ -72,6 +72,7 @@ def run_migrations_online() -> None:
         )
 
         with context.begin_transaction():
+            print(222)
             context.run_migrations()
 
 
