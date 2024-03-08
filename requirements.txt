@@ -6,6 +6,8 @@ certifi==2024.2.2
 charset-normalizer==3.3.2
 click==8.1.7
 contourpy==1.2.0
+dnspython==2.6.1
+email_validator==2.1.1
 exceptiongroup==1.2.0
 fastapi==0.110.0
 FastAPI-SQLAlchemy==0.2.1
