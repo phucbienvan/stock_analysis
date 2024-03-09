@@ -6,3 +6,9 @@ class RegisterUserRequest(BaseModel):
     email : EmailStr
     password : str
     is_active : Optional[bool] = True
+
+class UserResponse(BaseModel):
+    id: int
+    full_name: str
+    email: EmailStr
+    is_active: bool
