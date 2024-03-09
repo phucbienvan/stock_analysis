@@ -3,6 +3,7 @@ from pandas_datareader import data
 import datetime, json
 from fastapi_sqlalchemy import db
 from app.models import Users
+from app.core.security import get_password_hash
 
 class UserService(object):
     __instance = None
@@ -20,7 +21,7 @@ class UserService(object):
         user = Users(
             full_name = request_data.full_name,
             email = request_data.email,
-            hashed_password = 123456,
+            hashed_password = get_password_hash(request_data.password),
             is_active = True,
         )
 
