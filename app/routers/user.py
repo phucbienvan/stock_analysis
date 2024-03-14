@@ -4,7 +4,7 @@ from typing import Any
 from app.services.user_service import UserService
 from app.schemas.sche_base import DataResponse
 from app.schemas.sche_user import UserResponse
-
+from app.core.security import create_access_token
 router = APIRouter()
 
 @router.post("/register", tags=[""], description="Register user", response_model=DataResponse[UserResponse])
@@ -24,8 +24,11 @@ async def login(request_data: LoginRequest , user_service: UserService = Depends
         
         if not login_user:
             raise HTTPException(status_code=400, detail='Incorrect email or password')
-        elif not user.is_active:
+        elif not login_user.is_active:
             raise HTTPException(status_code=401, detail='Inactive user')
         
+        return DataResponse().success_response({
+            'access_token': create_access_token(user_id=login_user.id)
+        })
     except Exception as e:
         raise e
