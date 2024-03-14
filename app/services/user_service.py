@@ -1,9 +1,9 @@
-from app.schemas.sche_user import RegisterUserRequest
+from app.schemas.sche_user import RegisterUserRequest, LoginRequest
 from pandas_datareader import data
 import datetime, json
 from fastapi_sqlalchemy import db
 from app.models import Users
-from app.core.security import get_password_hash
+from app.core.security import get_password_hash, verify_password
 
 class UserService(object):
     __instance = None
@@ -28,4 +28,17 @@ class UserService(object):
         db.session.add(user)
         db.session.commit()
 
+        return user
+
+
+    @staticmethod
+    def login(request_data: LoginRequest):
+        user = db.session.query(Users).filter_by(email=request_data.email).first()
+
+        if not user:
+            return None
+        
+        if not verify_password(request_data.password, user.hashed_password):
+            return None
+        
         return user
