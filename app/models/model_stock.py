@@ -6,4 +6,4 @@ class Stocks(BareBaseModel):
     sign = Column(String(255), index=True)
     start_date = Column(DateTime)
     end_date = Column(DateTime)
-    content = Column(String)
+    content = Column(String(255))
