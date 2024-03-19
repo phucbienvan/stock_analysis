@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware  # Import the CORSMiddleware
 from fastapi_sqlalchemy import DBSessionMiddleware
 
-from app.routers import stock, user
+from app.routers import api_router
 from app.models import Base
 from app.db.base import engine
 from app.core.config import settings
@@ -26,8 +26,7 @@ def get_application() -> FastAPI:
     )
     
     application.add_middleware(DBSessionMiddleware, db_url=settings.DATABASE_URL)
-    application.include_router(stock.router)
-    application.include_router(user.router)
+    application.include_router(api_router.router)
 
     return application
 

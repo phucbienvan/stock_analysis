@@ -5,7 +5,7 @@ from app.schemas.sche_base import DataResponse
 
 router = APIRouter()
 
-@router.post("/stock", tags=[""], description="")
+@router.post("/stock", tags=["create stock"], description="")
 async def create(request_data: StockCreateRequest):
     try:
         result = StockService.create(request_data)

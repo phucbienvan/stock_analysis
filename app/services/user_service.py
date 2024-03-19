@@ -33,7 +33,7 @@ class UserService(object):
 
     @staticmethod
     def login(request_data: LoginRequest):
-        user = db.session.query(Users).filter_by(email=request_data.email).first()
+        user = db.session.query(Users).filter_by(email=request_data.email, is_active = True).first()
 
         if not user:
             return None
