@@ -1,11 +1,12 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from app.services.stock_service import StockService
 from app.schemas.sche_stock import StockCreateRequest
 from app.schemas.sche_base import DataResponse
+from app.middleware.authenticate import authenticate
 
 router = APIRouter()
 
-@router.post("/stock", tags=["create stock"], description="")
+@router.post("/stock", tags=["create stock"], description="", dependencies=[Depends(authenticate)])
 async def create(request_data: StockCreateRequest):
     try:
         result = StockService.create(request_data)

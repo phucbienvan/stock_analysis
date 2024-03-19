@@ -16,3 +16,6 @@ class UserResponse(BaseModel):
     full_name: str
     email: EmailStr
     is_active: bool
+
+class TokenPayload(BaseModel):
+    user_id: Optional[int] = None
