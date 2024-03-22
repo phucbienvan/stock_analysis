@@ -5,7 +5,6 @@ class RegisterUserRequest(BaseModel):
     full_name : str
     email : EmailStr
     password : str
-    is_active : Optional[bool] = True
 
 class LoginRequest(BaseModel):
     email: EmailStr

@@ -5,6 +5,7 @@ from app.services.user_service import UserService
 from app.schemas.sche_base import DataResponse
 from app.schemas.sche_user import UserResponse
 from app.core.security import create_access_token
+from app.helpers.exception_handler import CustomException
 router = APIRouter()
 
 @router.post("/register", tags=["create user"], description="Register user", response_model=DataResponse[UserResponse])
@@ -14,8 +15,7 @@ async def register(request_data: RegisterUserRequest, user_service: UserService 
 
         return DataResponse().success_response(data=register_user)
     except Exception as e:
-        raise e
-
+        return CustomException(http_code=400, code='400', message=str(e))
 
 @router.post("/login", tags=["login"], description="Login")
 async def login(request_data: LoginRequest , user_service: UserService = Depends()):
