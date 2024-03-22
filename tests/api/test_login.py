@@ -26,6 +26,5 @@ async def test_wrong_email(client: TestClient) -> None:
         },
     )
     resp_json = resp.json()
-    print("resp_json",resp_json)
 
     assert resp_json['detail'] == "Incorrect email or password"
